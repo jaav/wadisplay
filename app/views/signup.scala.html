@@ -1,0 +1,349 @@
+@(regForm: Form[Registration])
+@import helper._ 
+@import helper.twitterBootstrap._
+
+
+
+
+		@* Display proprietary login form *@
+		@helper.form(routes.Application.registerUser) {
+
+		@if(regForm.hasGlobalErrors) {
+		<p class="error">
+			<span class="label label-important">@regForm.globalError.message</span>
+		</p>
+		}
+		<head>
+		
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+            <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="@routes.Assets.at("jquery-ui.js")"></script>
+		<script src="@routes.Assets.at("jquery-latest.js")"></script>
+        <script src="@routes.Assets.at("js/bootstrap.min.js")"></script>
+         <script src="@routes.Assets.at("js/jquery.validate.bootstrap.js")"></script>
+          <script src="@routes.Assets.at("js/jquery.validate.js")"></script>
+         
+        <script src="@routes.Assets.at("js/edit-registration.js")"></script>
+        
+ <script src="@routes.Assets.at("js/modal.js")"></script>
+<!-- Le styles -->
+        <link href="@routes.Assets.at("stylesheets/main.min.css")" rel="stylesheet">
+        <link href="@routes.Assets.at("css/bootstrap.min.css")" rel="stylesheet">
+        <link href="@routes.Assets.at("stylesheets/main.min.css")" rel="stylesheet">
+        <link href="@routes.Assets.at("css/bootstrap-responsive.min.css")" rel="stylesheet">
+        <link href="@routes.Assets.at("css/bootstrap-responsive.css")" rel="stylesheet">
+        <script type="text/javascript">
+		$(function(){
+
+       $('#datepicker').datepicker();
+
+   });</script>
+
+</head><body style=" margin-top: 16%; ">
+
+<div  style="float: right;margin-right: 51%;margin-top: 1%;width: 280px;">
+<h1>Registration New</h1>
+		<div class="control-group span9">
+			
+			<input type="text"   class="span3" placeholder="date"  name="date" id="datepicker" style="width: 128px;height: 35Px;" title="Error Title"  data-rule-required="true"   data-placement="bottom" />
+			<input type="text"   class="span3" placeholder="hh:mm"  name="timer" style="width: 80px;height: 35px;"/>
+		    <input type="text"   class="span3 " placeholder="duration"   name="duration" style="height: 35px;">
+		</div>
+		<div class="control-group  span9" >
+					<select name="conversationType"  style="width: 228px;">
+					<option value=" ">ConversationType</option>
+					<option value="option1">Option1</option>
+					<option value="option2">Option2</option>
+					</select>
+		</div>
+				<div class="span9">
+				<textarea rows="" cols=""  name="question" placeholder="Question or Comment" style=" width: 735px;"></textarea>
+				</div>
+				<div class="control-group span9">
+					<select class="span2" name="gender">
+					<option value=" ">Gender</option>
+					<option value="M">M</option>
+					<option value="F">F</option>
+					</select>
+					<input type="text"  class="span1" name="age" placeholder="Age" style=" height: 30px; margin-left: 3px;">
+					<input type="checkbox" name="hasViolence" class="span1" style=" margin-left: 116px;">UseViolence
+					</div>
+					<div class="control-group span9">
+					
+						<input type="text" name="zipCode" class="span1"  style=" width: 72px; height: 30px;" placeholder="zipCode">
+						<input type="text" name="location" class="span2"  style=" width: 232px; margin-left:2.5px; height: 30px;" placeholder="location">
+					
+				</div>
+				<div class="control-group span9" style="display: inline;">
+					
+						<select name="presentation" style=" width: 152px;">
+						<option value=" ">Presentation</option>
+						<option value="option1">option1</option>
+					    <option value="option2">option2</option>
+						</select>
+					
+					
+						@select(
+                regForm("relations[]"), 
+                options(Relation.options), 
+                '_label -> "Relations", '_default -> "-- Relations --",
+                '_showConstraints -> false
+            )
+					 <a data-toggle="modal" href="#myModal1" class="btn btn-link">Add Relation</a>
+				</div>
+				<div class="control-group span9">
+					
+				@select(
+                regForm("products[]"), 
+                options(Product.options), 
+                '_label -> "Products", '_default -> "-- Products --",
+                '_showConstraints -> false
+            )
+							 <a data-toggle="modal" href="#myModal" class="btn btn-link">Add Product</a>
+						
+					
+				@select(
+                regForm("refers[]"), 
+                options(Refer.options), 
+                '_label -> "Refer", '_default -> "-- Refer --",
+                '_showConstraints -> false
+            )
+					<a data-toggle="modal" href="#myModal2" class="btn btn-link">Add Refer</a>
+				</div>
+		
+				<div class="control-group span9">
+				
+						@select(
+                regForm("productQuestion[]"), 
+                options(ProductQuestion.options), 
+                '_label -> "ProductQuestions", '_default -> "-- ProductQuestions --",
+                '_showConstraints -> false
+            )
+						<a data-toggle="modal" href="#myModal3" class="btn btn-link">Add ProductQuestions</a>
+					
+					@select(
+                regForm("socialContexts[]"), 
+                options(SocialContext.options), 
+                '_label -> "SocialContext", '_default -> "-- SocialContext --",
+                '_showConstraints -> false
+            )
+					<a data-toggle="modal" href="#myModal4" class="btn btn-link">Add SocialContext</a>
+				</div>
+		
+				<div class="control-group span9">
+					
+						<select  name="questionType" >
+						<option value=" ">QuestionType</option>
+						<option value="option1">option1</option>
+					    <option value="option2">option2</option>
+						</select>
+					
+					<select   class="span1" name="origin" style="width:180px; margin-left: 155px;">
+					<option value=" ">Origin</option>
+					<option value="option1">option1</option>
+					<option value="option2">option2</option>
+					</select>
+				</div>
+				
+				<div class="control-group">
+					<div class="bs-docs-example span9" >
+						<h6>INFORMATION TO THIRD PARTY</h6>
+						<hr />
+						<div class="control-group">
+							<select  value="registration.tpGender" name="tpGender" style="height:30px;">
+							<option value=" ">Gender</option>
+							<option value="M">M</option>
+					         <option value="F">F</option></select>
+							<input type="text" placeholder="TypeOfUsage" class="span1" name="tpAge" style="height:30px;"/>
+							<select  name="tpUsageType" class="span4" >
+							<option value=" ">TypeOfUsage</option>
+							<option value="Experimental">Experimental</option>
+							<option value="Premium">Premium</option>
+							</select>
+						</div>
+					</div>
+				</div>
+		
+				<div class="form-actions span9 controls-row" style="margin-left:0;">
+					<div class="btn-toolbar" style="float:right;">
+						<a href="@routes.Application.overview()" class="btn" >Cancel</a>
+						<button type="submit" class="btn btn-primary" id="dialog">Save</button>
+					</div>
+				</div>
+				
+		
+		 }
+			
+			<div id="dialog" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="dialogLabel" aria-hidden="true" data-backdrop="static">
+		<div class="modal-header">
+				<h3 id="dialogLabel">Registration Successful</h3>
+			</div>	
+			<div class="modal-body">
+				<ul class="nav nav-list">
+					<li>
+					<a href="@routes.Application.sendMessage()" >Send Email To A Colleague</a>
+						
+					</li>
+					<li>
+						<a href="@routes.Application.sendMessage()" >Add an Event Agent</a>
+					</li>
+					<li>
+						<a href="@routes.Application.sendMessage()" >Add an Event Agent</a>
+					</li>
+				</ul>
+			</div>
+			<div class="modal-footer">
+				<a href="@routes.Application.overview()" class="btn" >Finish</a>			
+			</div>
+		
+		</div>	
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      @helper.form(routes.Application.saveProducts) {
+             <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Products</h4>
+        </div>
+        <div class="modal-body">
+        <fieldset>
+           name:<input type="text" name="name" placeholder="name" style="height:30px;"><br>
+           description:<textarea rows="3" cols="5" placeholder="description"></textarea>
+        </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+     }
+      </div>
+    </div>
+  </div>
+			
+		<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+       @helper.form(routes.Application.saveSocialContext) {
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">SocialContext</h4>
+        </div>
+        <div class="modal-body">
+        <fieldset>
+           name:<input type="text" name="name" placeholder="name" style="height:30px;"><br>
+          
+        </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      }
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        @helper.form(routes.Application.saveProductQuestions) {
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">ProductQuestions</h4>
+        </div>
+        <div class="modal-body">
+        <fieldset>
+           name:<input type="text" name="question" placeholder="Question or Comment" style="height:30px;"><br>
+          
+        </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      @helper.form(routes.Application.saveReferers) {
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Refer</h4>
+        </div>
+        <div class="modal-body">
+        <fieldset>
+           name:<input type="text" name="name" placeholder="name" style="height:30px;"><br>
+           
+        </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      }
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        @helper.form(routes.Application.saveRelations) {
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Relation</h4>
+        </div>
+        <div class="modal-body">
+        <fieldset>
+           name:<input type="text" name="name" placeholder="name" style="height:30px;"><br>
+           
+        </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+       }
+      </div>
+    </div>
+  </div>
+			
+			<div id="productDialog" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="productDialogLabel" aria-hidden="true" update="show" data-backdrop="static">
+				
+				<form  id="productForm" class="form-horizontal" style= "margin: 0px;">
+				
+					<div class="modal-header">
+						<h3 id="productDialogLabel">@Messages("playauthenticate.register.newProduct")</h3>
+					</div>
+					<div class="modal-body">
+						<div class="control-group">
+							
+							<input  type="text" id="productName" value="product.name" class="span8">
+						</div>
+						<div class="control-group">
+							
+							<textarea  value="product.description" class="span8" name="description"></textarea>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<a class="btn"  data-dismiss="modal" aria-hidden="true">${message:cancel}</a>
+						<button type="submit" class="btn btn-primary">${message:save}</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		 </body>
+		@main(Messages("playauthenticate.signup.title"),"signup") {
+
+	
+
+}
+		
+		 
+		 
+		 
+	

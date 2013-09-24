@@ -1,0 +1,39 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index
+#GET     /assets/javascript/routes.js    controllers.Application.jsRoutes
+
+
+GET     /login                      controllers.Application.login
+
+POST    /login                      controllers.Application.doLogin
+
+GET     /register               controllers.Application.register
+
+POST     /register/new               controllers.Application.registerUser
+
+GET     /listUsers               controllers.Application.overview
+
+GET     /getMessage               controllers.Application.sendMessage
+
+POST     /products               controllers.Application.saveProducts
+
+POST     /productQuestions               controllers.Application.saveProductQuestions
+
+POST     /relations               controllers.Application.saveRelations
+
+POST     /refers               controllers.Application.saveReferers
+
+POST     /socialcontexts               controllers.Application.saveSocialContext
+
+POST     /send               controllers.Application.sendUserMessage
+
+GET     /logout                     com.feth.play.module.pa.controllers.Authenticate.logout
+GET     /authenticate/:provider     com.feth.play.module.pa.controllers.Authenticate.authenticate(provider: String)
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

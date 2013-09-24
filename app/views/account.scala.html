@@ -1,0 +1,61 @@
+
+@import helper._ 
+@import helper.twitterBootstrap._
+
+
+
+
+<head>
+  	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script src="@routes.Assets.at("js/bootstrap.min.js")"></script>
+         <script src="@routes.Assets.at("js/bootstrap.min.js")"></script>
+        <script src="@routes.Assets.at("js/edit-registration.js")"></script>
+        
+
+<!-- Le styles -->
+          <title>OverView</title>
+        <link href="@routes.Assets.at("css/bootstrap.css")" rel="stylesheet">
+     </head>
+		<body style=" margin-top: 16%; ">
+		
+		<body>
+		<div class="span9" style=" float: right; margin-right: 9; width: 1047; ">
+		<h1>Registration Overview</h1>
+		<div class="t-data-grid">
+<table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Question</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="@routes.Application.register()">131073</a></td>
+            <td>Rammohan </td>
+            <td>Reddy</td>
+            <td>A+</td>
+          </tr>
+          <tr>
+            <td>002</td>
+            <td>Smita</td>
+            <td>Pallod</td>
+            <td>A</td>
+          </tr>
+          <tr>
+            <td>003</td>
+            <td>Rabindranath</td>
+            <td>Sen</td>
+            <td>A+</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      </div>
+</body>
+	@main(Messages("playauthenticate.signup.title"),"overview") {	
+		
+
+}
