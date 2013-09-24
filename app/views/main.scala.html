@@ -1,0 +1,234 @@
+@(title: String, nav: String = "")(content: Html)
+
+@import be.objectify.deadbolt.java.views.html._ 
+@import be.objectify.deadbolt.core.utils.TemplateUtils._
+
+<!DOCTYPE html>
+<html lang="@lang().code()">
+<head>
+ <!-- Le meta -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description"
+	content="Play Authenticate - an authentication module for the Play! Framework 2.0">
+<meta name="author" content="The Play Authenticate Team">
+
+<!-- Le scripts -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="@routes.Assets.at("js/bootstrap.min.js")"></script>
+<script src="@routes.Assets.at("js/bootstrap-datepicker.js")"></script>
+
+
+<!-- Le styles -->
+<link href="@routes.Assets.at("stylesheets/main.min.css")" rel="stylesheet">
+<link href="@routes.Assets.at("css/bootstrap.min.css")" rel="stylesheet">
+<link href="@routes.Assets.at(" css/datepicker.css")" rel="stylesheet">
+
+
+
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="brand" href="#" style="color: white;">Wadisda Project</a>
+
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</div>
+	<div class="container-fluid" style="margin-top: -151px;">
+		<div class="row-fluid">
+			<div class="span3" style="margin-top: -12px;">
+				<div class="row-fluid page-header">
+					<div class="thumbnail span3">
+						
+						<img src="" />
+					</div>
+					<div class="span9">
+						<h5></h5>
+						
+						
+						<div class="btn-toolbar">
+
+							<a href="#" class="btn btn-info">Account</a> 
+							<a href="@com.feth.play.module.pa.controllers.routes.Authenticate.logout()" class="btn btn-info">Logout</a>
+						</div>
+					</div>
+				</div>
+				<div class="well" style="padding: 8px 0;">
+						<ul class="nav nav-list">
+						<li>
+								<a href="@routes.Application.index()">
+									<i class="icon-home">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DashBoard</i>
+								</a>
+							</li>
+						
+						<li>
+								<a href="#">
+									<i class="icon-ok">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ToDolist</i>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="icon-calendar" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Agenda</i>
+								</a>
+							</li>
+						</ul>
+						</div>
+						<hr />
+					<div class="accordion" id="accordion">
+						<div class="accordion-group">
+							<div class="accordion-heading">
+						<a class="accordion-toggle" data-toggle="collapse"
+									data-parent="#accordion" href="#collapse0">
+									<i class="icon-edit" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Register</i>
+									<i class="icon-chevron-down" style="float:right;" ></i>
+								</a>
+							</div>
+							<div id="collapse0"	class="accordion-body collapse ${getMenuCategoryClass(['registrations/editNew','registrations/editNew'])}">
+								<div class="accordion-inner">
+									<ul class="nav nav-list">
+									<li class="active">
+											<a href="@routes.Application.register()" >
+												<i class="icon-chevron-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;New</i>
+											</a>
+										</li>
+										<li >
+											<a href="@routes.Application.overview()">
+												<i class="icon-chevron-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overview</i>
+											</a>
+										</li>
+									</ul>
+									</div>
+									</div>
+									</div>
+									<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse"
+									data-parent="#accordion" href="#collapse1">
+									<i class="icon-barcode" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;products</i>
+									<i class="icon-chevron-down" style="float:right;" ></i>
+								</a>
+							</div>
+							<div id="collapse1" class="accordion-body collapse">
+								<div class="accordion-inner">
+									<ul class="nav nav-list">
+										<li>
+											<a href="@routes.Application.register()">
+												<i class="icon-chevron-right">&nbsp;&nbsp;&nbsp;&nbsp;New</i>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<i class="icon-chevron-right">&nbsp;&nbsp;&nbsp;&nbsp;OverView</i>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse"
+									data-parent="#accordion" href="#collapse2">
+									<i class="icon-envelope" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;address</i>
+									<i class="icon-chevron-down" style="float:right;" ></i>
+								</a>
+							</div>
+							<div id="collapse2" class="accordion-body collapse">
+								<div class="accordion-inner">
+									<ul class="nav nav-list">
+										<li>
+											<a href="#">
+												<i class="icon-chevron-right">&nbsp;&nbsp;&nbsp;&nbsp;New</i>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<i class="icon-chevron-right">&nbsp;&nbsp;&nbsp;&nbsp;OverView</i>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse"
+									data-parent="#accordion" href="#collapse3">
+									<i class="icon-flag" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ews</i>
+									<i class="icon-chevron-down" style="float:right;" ></i>
+								</a>
+							</div>
+							<div id="collapse3" class="accordion-body collapse">
+								<div class="accordion-inner">
+									<ul class="nav nav-list">
+										<li>
+											<a href="#">
+												<i class="icon-chevron-right">&nbsp;&nbsp;&nbsp;&nbsp;New</i>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<i class="icon-chevron-right">&nbsp;&nbsp;&nbsp;&nbsp;OverView</i>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse"
+									data-parent="#accordion" href="#collapse4">
+									<i class="icon-fire" >&nbsp;&nbsp;&nbsp;&nbsp;Violence</i>
+									<i class="icon-chevron-down" style="float:right;" ></i>
+								</a>
+							</div>
+							<div id="collapse4" class="accordion-body collapse">
+								<div class="accordion-inner">
+									<ul class="nav nav-list">
+										<li>
+											<a href="#" class="icon-chevron-right">
+												New
+											</a>
+										</li>
+										<li>
+											<a href="#" class="icon-chevron-right">
+												OverView
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<hr />
+					<div class="btn-toolbar">
+						<a class="btn btn-info">
+							Print
+						</a>
+						<a class="btn btn-info">
+							Export
+						</a>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+
+			
+			
+		
+
+		@content
+</body>
+</html>
+

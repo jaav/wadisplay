@@ -1,0 +1,74 @@
+@(regForm: Form[Registration])
+@import helper._ 
+@import helper.twitterBootstrap._
+
+
+
+
+			<head>
+		
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+            <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="@routes.Assets.at("jquery-ui.js")"></script>
+		<script src="@routes.Assets.at("jquery-latest.js")"></script>
+        <script src="@routes.Assets.at("js/bootstrap.min.js")"></script>
+         <script src="@routes.Assets.at("js/jquery.validate.bootstrap.js")"></script>
+          <script src="@routes.Assets.at("js/jquery.validate.js")"></script>
+         
+        <script src="@routes.Assets.at("js/edit-registration.js")"></script>
+        
+ <script src="@routes.Assets.at("js/modal.js")"></script>
+<!-- Le styles -->
+        <link href="@routes.Assets.at("stylesheets/main.min.css")" rel="stylesheet">
+        <link href="@routes.Assets.at("css/bootstrap.min.css")" rel="stylesheet">
+        <link href="@routes.Assets.at("stylesheets/main.min.css")" rel="stylesheet">
+        <link href="@routes.Assets.at("css/bootstrap-responsive.min.css")" rel="stylesheet">
+        <link href="@routes.Assets.at("css/bootstrap-responsive.css")" rel="stylesheet">
+        <script type="text/javascript">
+		$(function(){
+
+       $('#datepicker').datepicker();
+
+   });</script>
+
+</head><body style=" margin-top: 16%; ">
+
+<div  style="float: right;margin-right: 51%;margin-top: 1%;width: 280px;">
+<h1>Send Message</h1>
+		<div class="control-group span9" style="margin-left: -18px;">
+		@* Display proprietary login form *@
+		@helper.form(routes.Application.sendUserMessage) {
+
+		@if(regForm.hasGlobalErrors) {
+		<p class="error">
+			<span class="label label-important">@regForm.globalError.message</span>
+		</p>
+		}
+			<div class="fluid-row" style="margin-left: 21px;">
+			<span>Recipients</span>
+			</div> 
+			<div class="fluid-row" >
+			<div style="height:400px;overflow: auto;" class="well span4">
+			
+			</div>
+			<div class="span8" style=" margin-left: 58%; margin-top: -66%; margin-left: 55%; ">
+			<input type="text"    placeholder="Title"  name="title" style="height: 30px;" class="span6"/><br>
+			<input type="text"   placeholder="DueDate"  name="duedate" style="height: 30px;" id="datepicker" class="span6"/><br>
+			<textarea rows="" cols="" name="description" placeholder="Description" class="span6"> </textarea><br>
+		    <input type="text"   class="span3 " placeholder="Status"   name="status" style="height: 30px;"></div>
+			</div>
+			<div style="margin-left:0px; margin-left: 19px;width: 800px;" class="form-actions span10 controls-row" > 
+		    <div class="modal-footer">
+						<a class="btn"  data-dismiss="modal" aria-hidden="true">Cancel</a>
+						<button type="submit" class="btn btn-primary">Send</button>
+					</div>
+		</div>
+		</div>
+		</div>
+		
+		}
+</body>
+	@main(Messages("playauthenticate.signup.title"),"overview") {	
+		
+
+}
