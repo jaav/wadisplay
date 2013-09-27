@@ -1,6 +1,9 @@
 package models;
 
 import java.sql.Timestamp;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +26,7 @@ public class QuestionType extends Model {
 	
 	
 	@Column(name = "name")
-	private String name;
+	public String name;
 
 	public String getName() {
 		return name;
@@ -36,11 +39,11 @@ public class QuestionType extends Model {
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "id")
-	private Long id;
+	public Long id;
 
 	@Version
 	@Column(name = "last_modified")
-	private Timestamp lastModified;
+	public Timestamp lastModified;
 
 	public Long getId() {
 		return id;
@@ -57,7 +60,31 @@ public class QuestionType extends Model {
 	public void setLastModified(Timestamp lastModified) {
 		this.lastModified = lastModified;
 	}
-
-	
-	
+	public static Model.Finder<Long,QuestionType> find = new Model.Finder(Long.class, QuestionType.class);
+	public static Map<String,String> options() {
+	    LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+	   
+	    /*options.put("info/help", "info/help");
+	    options.put("advice", "advice");
+	    options.put("info and advice", "info and advice");
+	    */
+	    
+	    List<QuestionType> findList = QuestionType.find.orderBy("name").findList();
+	    System.out.println("fid list======"+findList);
+	    if(findList.size()<=0){
+	   	 
+	   	 return options;
+	    }
+		for(QuestionType c: findList) {
+	        options.put(c.id.toString(), c.name);
+	    }
+	    return options;
+	}
+	public QuestionType(String name,Long id){
+		this.id=id;
+		this.name=name;
+	}
+	public QuestionType(){
+		
+	}
 }

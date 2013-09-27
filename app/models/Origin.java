@@ -2,6 +2,9 @@ package models;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,11 +27,11 @@ public class Origin extends Model implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "id")
-	private Long id;
+	public Long id;
 
 	@Version
 	@Column(name = "last_modified")
-	private Timestamp lastModified;
+	public Timestamp lastModified;
 
 	public Long getId() {
 		return id;
@@ -46,9 +49,9 @@ public class Origin extends Model implements Serializable{
 		this.lastModified = lastModified;
 	}
 	
-	@NotBlank
+	
 	@Column(name = "name")
-	private String name;
+	public String name;
 
 	public String getName() {
 		return name;
@@ -57,7 +60,24 @@ public class Origin extends Model implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	
+	public static Model.Finder<Long,Origin> find = new Model.Finder(Long.class, Origin.class);
+	public static Map<String,String> options() {
+	    LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+	   
+	  /*  options.put("organisation1", "organisation1");
+	    options.put("organisation2", "organisation2");*/
+	    
+	    
+	    List<Origin> findList = Origin.find.orderBy("name").findList();
+	    System.out.println("fid list======"+findList);
+	    if(findList.size()<=0){
+	   	 
+	   	 return options;
+	    }
+		for(Origin c: findList) {
+	        options.put(c.id.toString(), c.name);
+	    }
+	    return options;
+	}
 
 }

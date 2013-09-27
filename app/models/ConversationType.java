@@ -2,12 +2,17 @@ package models;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -24,12 +29,12 @@ public class ConversationType extends Model implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "id")
-	private Long id;
+	public Long id;
 	
 	
-	@NotBlank
+	
 	@Column(name = "name")
-	private String name;
+	public String name;
 
 	public String getName() {
 		return name;
@@ -43,7 +48,7 @@ public class ConversationType extends Model implements Serializable {
 
 	@Version
 	@Column(name = "last_modified")
-	private Timestamp lastModified;
+	public Timestamp lastModified;
 
 	public Long getId() {
 		return id;
@@ -64,8 +69,33 @@ public class ConversationType extends Model implements Serializable {
 		ConversationType type=new ConversationType();
 		type.save();
 		return type;
-
 	}
-
+	public static Model.Finder<Long,ConversationType> find = new Model.Finder(Long.class, ConversationType.class);
+	public static Map<String,String> options() {
+	    LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+	   
+	   /* options.put("fake call", "fake call");
+	    options.put("sex caller", "sex caller");
+	    options.put("silence", "silence");
+	    options.put("wrong number", "wrong number");
+	    options.put("e-mail", "e-mail");*/
+	    
+	    List<ConversationType> findList = ConversationType.find.orderBy("name").findList();
+	    System.out.println("fid list======"+findList);
+	    if(findList.size()<=0){
+	   	 
+	   	 return options;
+	    }
+		for(ConversationType c: findList) {
+	        options.put(c.id.toString(), c.name);
+	    }
+	    return options;
+	}
 	
+	public ConversationType(String name,Long id){
+		this.id=id;
+		this.name=name;
+	}
+	public ConversationType(){
+	}
 }

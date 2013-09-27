@@ -12,12 +12,17 @@ import java.util.Map;
 import java.util.Set;
 
 import models.Computer;
+import models.ConversationType;
+import models.Origin;
+import models.Presentation;
 import models.Product;
 import models.ProductQuestion;
+import models.QuestionType;
 import models.Refer;
-import models.Registration;
+import models.RegistrationForm;
 import models.Relation;
 import models.SocialContext;
+import models.UsageType;
 import models.User;
 import play.data.Form;
 
@@ -32,6 +37,7 @@ import views.html.login;
 import views.html.dashboard;
 
 import views.html.signup;
+import views.html.editsignup;
 import views.html.overviewusers;
 import views.html.sendmessage;
 import play.Routes;
@@ -44,7 +50,7 @@ import com.feth.play.module.pa.user.AuthUser;
 
 public class Application extends Controller {
 
-	public static final Form<Registration> REGISTRATION_FORM = form(Registration.class);
+	public static final Form<RegistrationForm> REGISTRATION_FORM = form(RegistrationForm.class);
 	public static final String FLASH_MESSAGE_KEY = "message";
 	public static final String FLASH_ERROR_KEY = "error";
 	public static final String USER_ROLE = "user";
@@ -94,31 +100,48 @@ public class Application extends Controller {
 	
 	public static Result registerUser() {
 		
-		Registration registration=new Registration();
+		RegistrationForm registration=new RegistrationForm();
 		Map<String, String> newData = new HashMap<String, String>();
 		
 		System.out.println("inside registration =======================");
 		Map<String, String[]> formUrlEncoded = Controller. request().body().asFormUrlEncoded();
 		System.out.println("formUrlEncoded======="+formUrlEncoded.keySet());
-		Form<Registration> regForm = form(Registration.class).bindFromRequest();
+		Form<RegistrationForm> regForm = form(RegistrationForm.class).bindFromRequest();
 		System.out.println("regForm values====="+regForm);
-		//System.out.println("regForm============"+regForm.data());
+		System.out.println("regForm============"+regForm.data());
+		//Long id = null;
+		ConversationType conversationType=new ConversationType();
+		Long id=conversationType.getId();
+		System.out.println("id of conversation type==="+id);
+		QuestionType questionType=new QuestionType();
+		Presentation presentation=new Presentation();
+		UsageType usageType=new UsageType();
+		Origin origin=new Origin();
+		
 	    List<Product> products = new ArrayList<Product>();
 	    List<Relation> relations = new ArrayList<Relation>();
 	    List<Refer> refers = new ArrayList<Refer>();
 	    List<SocialContext> socialContexts= new ArrayList<SocialContext>();
 	    List<ProductQuestion> productQuestions = new ArrayList<ProductQuestion>();
-	    
+
 	    for (String key : formUrlEncoded.keySet()) {
 	        String[] values = formUrlEncoded.get(key);
-	        
 	        System.out.println("values======================"+Arrays.toString(values));
+	        
 	        for (String val : values) {
-	            if ("products".equals(key)) products.add(Product.find.ref(Long.valueOf(val)));
-	            if ("relations".equals(key)) relations.add(Relation.find.ref(Long.valueOf(val)));
-	            if ("socialContexts".equals(key)) socialContexts.add(SocialContext.find.ref(Long.valueOf(val)));
-	            if ("productQuestions".equals(key)) productQuestions.add(ProductQuestion.find.ref(Long.valueOf(val)));
-	            if ("refers".equals(key)) refers.add(Refer.find.ref(Long.valueOf(val)));
+	  System.out.println("val values==="+val);
+	            if ("products.id".equals(key)) products.add(Product.find.ref(Long.valueOf(val)));
+	            if ("relations.id".equals(key)) relations.add(Relation.find.ref(Long.valueOf(val)));
+	            if ("socialContexts.id".equals(key)) socialContexts.add(SocialContext.find.ref(Long.valueOf(val)));
+	            if ("productQuestions.id".equals(key)) productQuestions.add(ProductQuestion.find.ref(Long.valueOf(val)));
+	            if ("refers.id".equals(key)) refers.add(Refer.find.ref(Long.valueOf(val)));
+	           if ("conversationType.id".equals(key)) registration.conversationType=ConversationType.find.ref(Long.valueOf(val));
+	           if ("presentation.id".equals(key)) registration.presentation=Presentation.find.ref(Long.valueOf(val));
+	           if ("tpUsageType.id".equals(key)) registration.tpUsageType=UsageType.find.ref(Long.valueOf(val));
+	           if ("questionType.id".equals(key)) registration.questionType=QuestionType.find.ref(Long.valueOf(val));
+	           if ("origin.id".equals(key)) registration.origin=Origin.find.ref(Long.valueOf(val));
+	           
+	            
 	           
 	         
 	          
@@ -134,15 +157,39 @@ public class Application extends Controller {
 	    System.out.println("has errors====="+hasErrors);
 	 
 	
-	registration.products=products;
-	registration.relations=relations;
-	registration.refers=refers;
-	registration.socialContexts=socialContexts;
-	registration.productQuestions=productQuestions;
-	
+	    
+	   // registration.conversationType=ConversationType.find.ref(con)
+	    registration.date=regForm.get().date;
+	    registration.age=regForm.get().age;
+	    registration.duration=regForm.get().duration;
+	    registration.timer=regForm.get().timer;
+	    registration.gender=regForm.get().gender;
+	    registration.hasViolence=regForm.get().hasViolence;
+	    registration.location=regForm.get().location;
+	    registration.question=regForm.get().question;
+	    registration.tpAge=regForm.get().tpAge;
+	    registration.tpGender=regForm.get().tpGender;
+	    registration.zipCode=regForm.get().zipCode;
+	    
+	    
+	    registration.products=products;
+	    registration.relations=relations;
+	    registration.refers=refers;
+	    registration.socialContexts=socialContexts;
+ 	    registration.productQuestions=productQuestions;
+	 
+	              /* registration.questionType=QuestionType.find.ref(Long.valueOf(questionType.id));
+	              registration.presentation=Presentation.find.ref(Long.valueOf(presentation.id));
+	              registration.tpUsageType=UsageType.find.ref(Long.valueOf(usageType.id));
+	              registration.origin=Origin.find.ref(Long.valueOf(origin.id));*/
 	System.out.println("registration alskdj======="+registration);
 	try{
 		registration.save();
+		registration.saveManyToManyAssociations("products");
+		registration.saveManyToManyAssociations("relations");
+		registration.saveManyToManyAssociations("refers");
+		registration.saveManyToManyAssociations("socialContexts");
+		registration.saveManyToManyAssociations("productQuestions");
 		
 	}catch (Exception e) {
 		e.printStackTrace();
@@ -152,11 +199,18 @@ public class Application extends Controller {
 	 System.out.println("registration values====="+registration.getGender());
 	 flash("success", "Computer " + registration.getGender() + " has been created");
 	 
-		return ok(overviewusers.render(Registration.listRegistrations()));
+		return ok(overviewusers.render(RegistrationForm.listRegistrations()));
+	}
+	
+	public static Result getRegistrationById(Long id){
+		
+	Form<RegistrationForm> form=form(RegistrationForm.class).fill(RegistrationForm.find.ref(id));
+	System.out.println("form values====="+form);
+		return ok(editsignup.render(form));
 	}
 	public static Result overview() {
-		List<Registration> listRegistrations = Registration.listRegistrations();
-	for (Registration registration : listRegistrations) {
+		List<RegistrationForm> listRegistrations = RegistrationForm.listRegistrations();
+	for (RegistrationForm registration : listRegistrations) {
 		System.out.println("registration values====="+registration.getDate());
 		System.out.println("registration values====="+registration.getTimer());
 		System.out.println("registration values====="+registration.getId());

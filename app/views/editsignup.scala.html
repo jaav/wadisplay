@@ -1,4 +1,4 @@
-@(regForm: Form[RegistrationForm])
+@(id: Long,regForm: Form[RegistrationForm])
 @import helper._ 
 @import helper.twitterBootstrap._
 
@@ -6,7 +6,7 @@
 
 
 		@* Display proprietary login form *@
-		@helper.form(routes.Application.registerUser) {
+		@helper.form(routes.Application.update(id)) {
 
 		@if(regForm.hasGlobalErrors) {
 		<p class="error">

@@ -27,11 +27,11 @@ public class Refer extends Model implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "id")
-	private Long id;
+	public Long id;
 
 	@Version
 	@Column(name = "last_modified")
-	private Timestamp lastModified;
+	public Timestamp lastModified;
 
 	public Long getId() {
 		return id;
@@ -51,7 +51,7 @@ public class Refer extends Model implements Serializable{
 	
 	@NotBlank
 	@Column(name = "name")
-	private String name;
+	public String name;
 
 	public String getName() {
 		return name;

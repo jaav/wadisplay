@@ -61,7 +61,7 @@ public class Product extends Model {
 	
 	
 	@Column(name = "name")
-	private String name;
+	public String name;
 
 	public String getName() {
 		return name;

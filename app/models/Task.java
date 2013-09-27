@@ -28,7 +28,7 @@ public class Task extends Model {
 
 	private static final long serialVersionUID = -8132594827462746290L;
 
-	@NotBlank
+	
 	@Column(name = "name")
 	public String name;
 
@@ -99,7 +99,7 @@ public class Task extends Model {
 
 	@ManyToOne
 	@JoinColumn(name = "registration")
-	public Registration registration;
+	public RegistrationForm registration;
 
 	public User getCreator() {
 		return creator;
@@ -173,11 +173,11 @@ public class Task extends Model {
 		this.taskType = taskType;
 	}
 
-	public Registration getRegistration() {
+	public RegistrationForm getRegistration() {
 		return registration;
 	}
 
-	public void setRegistration(Registration registration) {
+	public void setRegistration(RegistrationForm registration) {
 		this.registration = registration;
 	}
 

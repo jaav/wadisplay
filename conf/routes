@@ -34,6 +34,8 @@ POST     /send               controllers.Application.sendUserMessage
 GET     /logout                     com.feth.play.module.pa.controllers.Authenticate.logout
 GET     /authenticate/:provider     com.feth.play.module.pa.controllers.Authenticate.authenticate(provider: String)
 
+GET     /register/:id/edit            controllers.Application.getRegistrationById(id: Long)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

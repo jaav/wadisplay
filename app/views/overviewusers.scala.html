@@ -1,4 +1,4 @@
-@(users: List[Registration])
+@(users: List[RegistrationForm])
 @import helper._ 
 @import helper.twitterBootstrap._
 
@@ -34,8 +34,8 @@
         <tbody>
         @for(usersList <- users){
           <tr>
-            <td><a href="@routes.Application.register()">@usersList.id</a></td>
-            <td>@usersList.date</td>
+            <td><a href="@routes.Application.getRegistrationById(usersList.id)">@usersList.id</a></td>
+            <td>@usersList.date.format("dd MMM yyyy")</td>
             <td>@usersList.timer</td>
             <td>@usersList.question</td>
           </tr>
